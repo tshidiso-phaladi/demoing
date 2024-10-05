@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="JpaBuddyIdeaProjectConfig">
+    <option name="reLastEntityCreationPackage" value="src/main/java/za/co/study/casetshidiso/demoing/model/newentity" />
+    <option name="reverseEngineeringLastDbConnectionId" value="74a0f786-289a-4bdd-8cf6-298c15e2e3b1" />
+  </component>
   <component name="JpaPluginProjectSettings" isShowLibraryClassesInOrmView="true" />
 </project>

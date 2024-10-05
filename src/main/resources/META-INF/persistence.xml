@@ -3,7 +3,35 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
              version="3.2">
-  <persistence-unit name="default">
+<!--    <persistence-unit name="user" transaction-type="JTA">-->
+<!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
+<!--        <jta-data-source>java:app/datasource/userdatasource</jta-data-source>-->
+<!--        <class>za.co.study.casetshidiso.demoing.model.entity.User</class>-->
 
-  </persistence-unit>
+<!--        <properties>-->
+<!--            <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml"/>-->
+<!--        </properties>-->
+<!--    </persistence-unit>-->
+
+
+
+    <persistence-unit name="product" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:app/datasource/productdatasource</jta-data-source>
+        <class>za.co.study.casetshidiso.demoing.model.entity.Product</class>
+        <class>za.co.study.casetshidiso.demoing.model.entity.User</class>
+
+        <properties>
+            <property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml"/>
+            <property name="jakarta.persistence.sql-load-script-source" value="META-INF/initial-data.sql"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create" />
+            <property name="hibernate.dialect"    value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.show_sql"   value="true" />
+            <property name="eclipselink.logging.level.sql" value="FINE"/>
+            <property name="eclipselink.logging.parameters" value="true"/>
+            <property name="hibernate.format_sql" value="true" />
+
+        </properties>
+    </persistence-unit>
+
 </persistence>
