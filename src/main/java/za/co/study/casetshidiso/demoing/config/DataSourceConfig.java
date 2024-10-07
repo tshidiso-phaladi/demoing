@@ -9,16 +9,16 @@ import jakarta.ejb.Singleton;
         @DataSourceDefinition(
                 name = "java:app/datasource/userdatasource",
                 className = "com.mysql.cj.jdbc.MysqlDataSource",
-                url = "jdbc:mysql://localhost:3306/shop",
-                user = "root",
-                password = "adminAdmin"
+                url = "jdbc:mysql://mysqldb:3306/shop",
+                user = "shopuser",
+                password = "shopuserpass"
         ),
         @DataSourceDefinition(
                 name = "java:app/datasource/productdatasource",
                 className = "com.mysql.cj.jdbc.MysqlDataSource",
-                url = "jdbc:mysql://localhost:3306/shop",
-                user = "root",
-                password = "adminAdmin"
+                url = "jdbc:mysql://mysqldb:3306/shop",
+                user = "shopuser",
+                password = "shopuserpass"
         )
 })
 public class DataSourceConfig {
