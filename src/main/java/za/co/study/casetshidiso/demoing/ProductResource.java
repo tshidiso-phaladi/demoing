@@ -1,6 +1,5 @@
 package za.co.study.casetshidiso.demoing;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceException;
 import jakarta.ws.rs.*;
@@ -8,17 +7,17 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import za.co.study.casetshidiso.demoing.model.entity.Product;
-import za.co.study.casetshidiso.demoing.repository.ProductRepository;
+import za.co.study.casetshidiso.demoing.domain.model.product.Product;
+import za.co.study.casetshidiso.demoing.domain.model.product.ProductRepository;
 
 import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 @Path("/products")
 public class ProductResource {
-    private final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+
+    private Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     @Inject
     private ProductRepository productRepository;
@@ -29,21 +28,21 @@ public class ProductResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Product getProductById(@PathParam("id") Long id) {
+    public Product findProduct(@PathParam("id") Long id) {
         logger.info("Get Product by id: " + id);
-        return productRepository.getProductById(id);
+        return productRepository.findProduct(id);
     }
 
     @GET
 //    @RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Product> getAllProducts(@QueryParam("name") String name) {
+    public List<Product> findAllProducts(@QueryParam("name") String name) {
         if (name == null || name.isEmpty()) {
             logger.info("Get no Products");
 //            return new ArrayList<>();
         }
         logger.info("Get all products");
-        return productRepository.getAllProducts();
+        return productRepository.findAllProducts();
     }
     
     @POST

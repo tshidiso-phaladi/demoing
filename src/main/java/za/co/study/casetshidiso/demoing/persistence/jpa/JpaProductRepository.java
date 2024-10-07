@@ -1,42 +1,47 @@
-package za.co.study.casetshidiso.demoing.repository;
+package za.co.study.casetshidiso.demoing.persistence.jpa;
 
-import jakarta.ejb.Stateless;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import za.co.study.casetshidiso.demoing.model.entity.Product;
+import za.co.study.casetshidiso.demoing.domain.model.product.Product;
+import za.co.study.casetshidiso.demoing.domain.model.product.ProductRepository;
 
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.logging.Logger;
 
-@Stateless
-public class ProductRepository {
-    private static final Logger LOG = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+@ApplicationScoped
+public class JpaProductRepository implements ProductRepository {
 
-    //revert if not working
+    private final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+
     @PersistenceContext/*(unitName = "product")*/
     private EntityManager entityManager;
 
-    public List<Product> getAllProducts() {
-        LOG.info("Getting all products");
+    @Override
+    public List<Product> findAllProducts() {
+        logger.info("Getting all products");
         return entityManager.createQuery("SELECT p from Product p", Product.class).getResultList();
     }
 
-    public Product getProductById(Long id) {
-        LOG.info("Getting product by id: " + id);
+    @Override
+    public Product findProduct(Long id) {
+        logger.info("Getting product by id: " + id);
         return entityManager.find(Product.class, id);
     }
 
+    @Override
     public Product createProduct(Product product) {
-        LOG.info("Creating product: " + product);
+        logger.info("Creating product: " + product);
         //validation check if price is not less than or equal to zero
         entityManager.persist(product);
 
         return product;
     }
 
+    @Override
     public Product updateProduct(Product product) {
-        LOG.info("Updating product: " + product);
+        logger.info("Updating product: " + product);
         Product updatedProduct = entityManager.find(Product.class, product.getId());
         if (updatedProduct != null) {
             return entityManager.merge(product);
@@ -44,8 +49,9 @@ public class ProductRepository {
         return null;
     }
 
+    @Override
     public void deleteProduct(Long id) {
-        LOG.info("Deleting product: " + id);
+        logger.info("Deleting product: " + id);
         Product deletedProduct = entityManager.find(Product.class, id);
         if (deletedProduct != null) {
             entityManager.remove(deletedProduct);

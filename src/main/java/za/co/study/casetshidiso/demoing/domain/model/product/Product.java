@@ -1,4 +1,4 @@
-package za.co.study.casetshidiso.demoing.model.entity;
+package za.co.study.casetshidiso.demoing.domain.model.product;
 
 import jakarta.persistence.*;
 

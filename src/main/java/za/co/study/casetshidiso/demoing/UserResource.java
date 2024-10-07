@@ -5,8 +5,8 @@ import jakarta.persistence.PersistenceException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import za.co.study.casetshidiso.demoing.model.entity.User;
-import za.co.study.casetshidiso.demoing.repository.UserRepository;
+import za.co.study.casetshidiso.demoing.domain.model.user.User;
+import za.co.study.casetshidiso.demoing.domain.model.user.UserRepository;
 
 import java.lang.invoke.MethodHandles;
 import java.util.List;
@@ -22,16 +22,16 @@ public class UserResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getProductById(@PathParam("id") Long id) {
+    public User findUser(@PathParam("id") Long id) {
         logger.info("Get User by id: " + id);
-        return userRepository.getUserById(id);
+        return userRepository.findUser(id);
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<User> getAllUsers() {
+    public List<User> findAllUsers() {
         logger.info("Get all users");
-        return userRepository.getAllUsers();
+        return userRepository.findAllUsers();
     }
 
     @POST
