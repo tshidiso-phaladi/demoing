@@ -1,4 +1,4 @@
-package za.co.study.casetshidiso.demoing;
+package za.co.study.casetshidiso.demoing.resource;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
