@@ -1,86 +1,59 @@
 package za.co.study.casetshidiso.demoing;
 
 import jakarta.inject.Inject;
-import jakarta.persistence.PersistenceException;
 import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
 import za.co.study.casetshidiso.demoing.domain.model.product.Product;
-import za.co.study.casetshidiso.demoing.domain.model.product.ProductRepository;
+import za.co.study.casetshidiso.service.ProductService;
 
 import java.lang.invoke.MethodHandles;
-import java.util.List;
 import java.util.logging.Logger;
 
 @Path("/products")
 public class ProductResource {
 
-    private Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
+    private final Logger logger = Logger.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     @Inject
-    private ProductRepository productRepository;
-
-    @Context
-    private UriInfo uriInfo;
+    private ProductService productService;
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Product findProduct(@PathParam("id") Long id) {
+    public Response findProduct(@PathParam("id") long id){
         logger.info("Get Product by id: " + id);
-        return productRepository.findProduct(id);
+        return productService.findProduct(id);
     }
 
     @GET
 //    @RolesAllowed("user")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Product> findAllProducts(@QueryParam("name") String name) {
-        if (name == null || name.isEmpty()) {
-            logger.info("Get no Products");
-//            return new ArrayList<>();
-        }
+    public Response findAllProducts() {
         logger.info("Get all products");
-        return productRepository.findAllProducts();
+        return productService.findAllProducts();
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Product createProduct(Product product) {
+    public Response createProduct(Product product) {
         logger.info("Create product: " + product.getName());
-        try{
-            return productRepository.createProduct(product);
-        }catch(PersistenceException pe){
-            logger.info("Error creating product: " + product.getName());
-            logger.info("Error message " + pe.getMessage());
-            throw new WebApplicationException(Response.Status.BAD_GATEWAY);
-        }
+        return productService.createProduct(product);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Product updateProduct(Product product) {
+    public Response updateProduct(Product product){
         logger.info("Update product: " + product.getName());
-        try{
-            return productRepository.updateProduct(product);
-        }catch(Exception pe){
-            logger.info("Error updating product " + product.getName());
-            throw new WebApplicationException(Response.Status.BAD_REQUEST);
-        }
+        return productService.updateProduct(product);
     }
 
     @DELETE
     @Path("{id}")
-    public void deleteProductById(@PathParam("id") Long id) {
+    public Response deleteProductById(@PathParam("id") long id) {
         logger.info("Delete product by id: " + id);
-        try {
-            productRepository.deleteProduct(id);
-        }catch (PersistenceException pe){
-            logger.info("Error deleting product: " + id);
-            throw new WebApplicationException(Response.Status.NOT_FOUND);
-        }
+        return productService.deleteProduct(id);
     }
 }

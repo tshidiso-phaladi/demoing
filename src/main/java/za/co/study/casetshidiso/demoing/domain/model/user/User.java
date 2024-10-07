@@ -5,11 +5,12 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users", schema = "shop")
+@NamedQuery(name = "User.byEmail", query = "SELECT u FROM User u WHERE u.emailAddress= ?1")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     private String name;
 
@@ -24,11 +25,11 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
