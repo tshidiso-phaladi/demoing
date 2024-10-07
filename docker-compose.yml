@@ -1,0 +1,25 @@
+services:
+  mysqldb:
+    image: mysql:8.0.39
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: shop
+      MYSQL_USER: shopuser
+      MYSQL_PASSWORD: shopuserpass
+    ports:
+      - "3307:3306"
+    expose:
+      - "3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+  wildfly:
+    build: .
+    container_name: wildfly
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+volumes:
+  mysql-data:
