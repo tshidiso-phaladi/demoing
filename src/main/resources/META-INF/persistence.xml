@@ -6,7 +6,7 @@
 
     <persistence-unit name="default" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:app/datasource/productdatasource</jta-data-source>
+        <jta-data-source>java:app/datasource/shopdatasource</jta-data-source>
         <class>za.co.study.casetshidiso.demoing.domain.model.product.Product</class>
         <class>za.co.study.casetshidiso.demoing.domain.model.user.User</class>
 
