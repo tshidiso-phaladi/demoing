@@ -14,17 +14,20 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>17</maven.compiler.target>
         <maven.compiler.source>17</maven.compiler.source>
+        <jakarta.ee.api.version>11.0.0-M3</jakarta.ee.api.version>
         <junit.version>5.11.0-M2</junit.version>
+        <assertj.version>3.24.2</assertj.version>
         <jjwt.version>0.10.0</jjwt.version>
         <mysql.connectorj.version>8.3.0</mysql.connectorj.version>
         <apache.shiro.version>1.13.0</apache.shiro.version>
+        <hibernate.version>6.5.2.Final</hibernate.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>11.0.0-M3</version>
+            <version>${jakarta.ee.api.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -40,9 +43,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.5.2.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.inject</groupId>
