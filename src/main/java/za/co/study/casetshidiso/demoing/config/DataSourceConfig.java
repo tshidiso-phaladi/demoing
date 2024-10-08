@@ -3,8 +3,6 @@ package za.co.study.casetshidiso.demoing.config;
 import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.ejb.Singleton;
 
-
-
 @Singleton
 @DataSourceDefinition(
         name = "java:app/datasource/shopdatasource",
