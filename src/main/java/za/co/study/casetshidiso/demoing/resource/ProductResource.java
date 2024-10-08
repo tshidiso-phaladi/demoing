@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import za.co.study.casetshidiso.demoing.config.RequiresAuthentication;
 import za.co.study.casetshidiso.demoing.domain.model.product.Product;
 import za.co.study.casetshidiso.service.ProductService;
 
@@ -52,6 +53,7 @@ public class ProductResource {
 
     @DELETE
     @Path("{id}")
+    @RequiresAuthentication
     public Response deleteProductById(@PathParam("id") long id) {
         logger.info("Delete product by id: " + id);
         return productService.deleteProduct(id);
