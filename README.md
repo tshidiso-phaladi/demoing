@@ -8,6 +8,6 @@ Next build docker images with below commad:
 ```
 docker-compose up --build
 ```
-
+* Go to http://localhost:8080/demoing/api/products
 
  
