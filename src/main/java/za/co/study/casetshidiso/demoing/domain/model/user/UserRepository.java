@@ -70,8 +70,18 @@ public class UserRepository {
     }
 
     private List<User> getUsersWithSameEmail(String emailAddress) {
-        TypedQuery<User> userTypedQuery = entityManager.createNamedQuery("User.byEmail", User.class);
-        userTypedQuery.setParameter(1, emailAddress);
+        TypedQuery<User> userTypedQuery = entityManager.createNamedQuery("User.byEmail", User.class)
+                .setParameter(1, emailAddress);
         return userTypedQuery.getResultList();
+    }
+
+    public boolean userExists(String name, String emailAddress) throws UserNotFoundException {
+        List<User> usersWithSameEmail = getUsersWithSameEmail(emailAddress);
+        if (!usersWithSameEmail.isEmpty() && usersWithSameEmail.get(0).getName().equals(name)) {
+            //the user exists
+            return true;
+        }else{
+            throw new UserNotFoundException(emailAddress);
+        }
     }
 }

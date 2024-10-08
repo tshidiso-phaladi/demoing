@@ -88,6 +88,15 @@ public class UserServiceImpl implements UserService {
         return Response.ok().build();
     }
 
+    @Override
+    public boolean userExists(String name, String emailAddress) {
+        try {
+            return userRepository.userExists(name, emailAddress);
+        } catch (UserNotFoundException e) {
+            return false;
+        }
+    }
+
     private static Response userNotFoundResponse() {
         ErrorResponse errorResponse =
                 new ErrorResponse(ERROR_CODE_USER_NOT_FOUND, ERROR_MESSAGE_USER_NOT_FOUND);
