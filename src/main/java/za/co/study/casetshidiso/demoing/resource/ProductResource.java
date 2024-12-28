@@ -19,6 +19,7 @@ public class ProductResource {
     @Inject
     private ProductService productService;
 
+
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
